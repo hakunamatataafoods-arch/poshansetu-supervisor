@@ -62,37 +62,34 @@
         </div>
         <div>
           <div class="flex items-center gap-2 text-[11px] font-bold text-amber-500 uppercase tracking-wide">
-            <span>GOVERNMENT OF GUJARAT</span>
-            <span>•</span>
-            <span class="text-white">ગુજરાત સરકાર</span>
-            <span>•</span>
-            <span class="text-slate-300">WCDD (ICDS ANAND)</span>
+            <span id="txt-govt-header">GOVERNMENT OF GUJARAT • ગુજરાત સરકાર • WCDD (ICDS ANAND)</span>
           </div>
-          <h1 class="text-xl font-extrabold text-white tracking-tight leading-tight">PoshanSetu Desktop Monitoring Portal</h1>
-          <p class="text-[11px] text-slate-400">Child Development Project Officer (CDPO) & Collector Office, Anand — Balbhog & Daily Nutrition Tracker</p>
+          <h1 class="text-xl font-extrabold text-white tracking-tight leading-tight" id="txt-portal-title">PoshanSetu Desktop Monitoring Portal</h1>
+          <p class="text-[11px] text-slate-400" id="txt-portal-subtitle">Child Development Project Officer (CDPO) & Collector Office, Anand — Balbhog & Daily Nutrition Tracker</p>
         </div>
       </div>
 
-      <!-- Controls: Language, Cloud Connection, Live Clock, Export PDF -->
+      <!-- Controls: Working Language Switcher, Cloud Status, Live Clock, Print -->
       <div class="flex items-center gap-3">
-        <button onclick="toggleLang()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-sm">
+        <!-- Language Switcher Button -->
+        <button onclick="toggleLang()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-black flex items-center gap-1.5 transition shadow-sm cursor-pointer">
           <i data-lucide="languages" class="w-3.5 h-3.5"></i>
-          <span id="langBtnLabel">ગુજરાતી</span>
+          <span id="langBtnLabel">English</span>
         </button>
 
         <div class="bg-[#0f1f3d] border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>RTDB Connected (Live)</span>
+          <span id="txt-rtdb-status">RTDB Connected (Live)</span>
         </div>
 
         <div class="bg-slate-800/80 border border-slate-700/80 px-3.5 py-1 rounded-lg text-right">
-          <p class="text-[9px] uppercase tracking-wider text-slate-400 font-bold">Indian Standard Time (IST)</p>
+          <p class="text-[9px] uppercase tracking-wider text-slate-400 font-bold" id="txt-clock-label">Indian Standard Time (IST)</p>
           <p class="text-xs font-black text-white font-mono" id="liveIstClock">11:30:59 IST</p>
         </div>
 
         <button onclick="window.print()" class="bg-[#DC2626] hover:bg-red-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-md active:scale-95 transition cursor-pointer">
           <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-          <span>Download PDF Report</span>
+          <span id="txt-btn-pdf">Download PDF Report</span>
         </button>
       </div>
 
@@ -105,38 +102,37 @@
   <div class="bg-[#121c38] text-white border-b border-slate-800/80 px-6 py-2 text-xs">
     <div class="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
       
-      <!-- Filter Selectors -->
       <div class="flex items-center flex-wrap gap-4 font-semibold text-slate-300">
         <div class="flex items-center gap-1.5 text-amber-400">
           <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-          <span>District: Anand</span>
+          <span id="txt-district-label">District: Anand (જિલ્લો: આણંદ)</span>
         </div>
         <span class="text-slate-600">|</span>
 
-        <!-- Taluka -->
+        <!-- Taluka Dropdown -->
         <div class="flex items-center gap-1.5">
-          <span class="text-slate-400">Taluka:</span>
+          <span class="text-slate-400" id="txt-taluka-label">Taluka:</span>
           <select id="talukaSelector" onchange="handleTalukaChange(this.value)" class="bg-[#1a294f] border border-slate-700 rounded-md px-2 py-0.5 text-white font-bold cursor-pointer focus:outline-none">
-            <option value="anand_rural" selected>Anand Rural</option>
-            <option value="anand_urban">Anand Urban</option>
-            <option value="petlad">Petlad</option>
+            <option value="anand_rural" selected id="opt-tal-rural">Anand Rural (આણંદ ગ્રામ્ય)</option>
+            <option value="anand_urban" id="opt-tal-urban">Anand Urban (આણંદ શહેર)</option>
+            <option value="petlad" id="opt-tal-petlad">Petlad (પેટલાદ)</option>
           </select>
         </div>
         <span class="text-slate-600">|</span>
 
-        <!-- Sector -->
+        <!-- Sector Dropdown -->
         <div class="flex items-center gap-1.5">
-          <span class="text-slate-400">Sector:</span>
+          <span class="text-slate-400" id="txt-sector-label">Sector:</span>
           <select id="sectorSelector" onchange="handleSectorChange(this.value)" class="bg-[#1a294f] border border-slate-700 rounded-md px-2 py-0.5 text-white font-bold cursor-pointer focus:outline-none">
-            <option value="vadtal_01" selected>Vadtal-01</option>
-            <option value="bakrol_02">Bakrol-02</option>
-            <option value="karamsad_03">Karamsad-03</option>
+            <option value="vadtal_01" selected>Vadtal-01 (વડતાલ-૦૧)</option>
+            <option value="bakrol_02">Bakrol-02 (બાકરોલ-૦૨)</option>
+            <option value="karamsad_03">Karamsad-03 (કરમસદ-૦૩)</option>
           </select>
         </div>
         <span class="text-slate-600">|</span>
 
         <div class="text-slate-400">
-          Project: <span class="text-white font-bold">ICDS PoshanSetu</span>
+          <span id="txt-project-label">Project:</span> <span class="text-white font-bold">ICDS PoshanSetu</span>
         </div>
       </div>
 
@@ -144,7 +140,7 @@
       <div class="flex items-center gap-3">
         <button onclick="openCentreModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1 rounded-md text-xs font-black flex items-center gap-1.5 active:scale-95 transition shadow-sm cursor-pointer">
           <i data-lucide="building" class="w-3.5 h-3.5"></i>
-          <span>Change / Select Centre</span>
+          <span id="txt-btn-change-centre">Change / Select Centre</span>
         </button>
         <span class="text-slate-400 font-mono text-[11px]">Endpoint: <span class="text-emerald-400">/active_stock</span></span>
       </div>
@@ -157,13 +153,13 @@
   <!-- ======================================================== -->
   <main class="max-w-[1600px] mx-auto p-6 w-full space-y-6 flex-1">
 
-    <!-- Row 1: The Three Screenshot Metric Cards -->
+    <!-- Row 1: The Three Top Metric Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       
-      <!-- CARD 1: SELECTED ANGANWADI CENTRE -->
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm relative overflow-hidden flex flex-col justify-between">
+      <!-- CARD 1: SELECTED CENTRE -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
         <div class="flex justify-between items-start">
-          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">SELECTED ANGANWADI CENTRE</span>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500" id="txt-card1-title">SELECTED ANGANWADI CENTRE</span>
           <span id="centreCodeBadge" class="bg-amber-100 text-amber-800 border border-amber-300 text-[11px] font-mono font-black px-2 py-0.5 rounded">AW-VAD-04</span>
         </div>
 
@@ -175,11 +171,11 @@
             </span>
           </div>
           <p class="text-xs text-slate-600 mt-1 font-semibold">
-            Taluka: <span id="centreTalukaText" class="text-slate-900 font-bold">Anand Rural</span> • 
-            Sector: <span id="centreSectorText" class="text-slate-900 font-bold">Vadtal-01</span>
+            <span id="lbl-c-taluka">Taluka:</span> <span id="centreTalukaText" class="text-slate-900 font-bold">Anand Rural</span> • 
+            <span id="lbl-c-sector">Sector:</span> <span id="centreSectorText" class="text-slate-900 font-bold">Vadtal-01</span>
           </p>
           <p class="text-xs text-slate-500 mt-0.5">
-            Supervisor: <span id="centreSupervisorText" class="font-bold text-slate-700">Shardaben Shah</span>
+            <span id="lbl-c-supervisor">Supervisor:</span> <span id="centreSupervisorText" class="font-bold text-slate-700">Shardaben Shah</span>
           </p>
         </div>
 
@@ -188,36 +184,36 @@
             <i data-lucide="user" class="w-4 h-4 text-amber-600"></i>
             <span id="centreWorkerDisplay">Smt. Bhavanaben Patel</span>
           </div>
-          <button onclick="openCentreModal()" class="text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-50 hover:bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-200 flex items-center gap-1 transition">
-            <span>Change</span>
+          <button onclick="openCentreModal()" class="text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-50 hover:bg-amber-100 px-2.5 py-1 rounded-lg border border-amber-200 flex items-center gap-1 transition cursor-pointer">
+            <span id="txt-btn-quick-change">Change</span>
             <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
           </button>
         </div>
       </div>
 
       <!-- CARD 2: LIVE BALBHOG BALANCE -->
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm relative overflow-hidden flex flex-col justify-between">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
         <div class="flex justify-between items-start">
           <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>LIVE BALBHOG BALANCE</span>
+            <span id="txt-card2-title">LIVE BALBHOG BALANCE</span>
           </span>
-          <span class="bg-emerald-50 text-emerald-800 border border-emerald-300 text-[11px] font-bold px-2 py-0.5 rounded">Live Synced</span>
+          <span class="bg-emerald-50 text-emerald-800 border border-emerald-300 text-[11px] font-bold px-2 py-0.5 rounded" id="txt-badge-synced">Live Synced</span>
         </div>
 
         <div class="my-2 flex items-baseline gap-2">
           <span id="liveBalanceVal" class="text-5xl font-black text-slate-900 font-mono tracking-tight">149</span>
-          <span class="text-base font-extrabold text-slate-500">Packets</span>
+          <span class="text-base font-extrabold text-slate-500" id="txt-units-packets">Packets</span>
         </div>
 
         <div class="flex items-center gap-1 text-xs text-slate-400 font-medium">
           <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-          <span>Last Updated: <span id="lastUpdatedClock" class="font-bold text-slate-700">11:30:52 am</span></span>
+          <span><span id="txt-last-updated-lbl">Last Updated:</span> <span id="lastUpdatedClock" class="font-bold text-slate-700">11:30:52 am</span></span>
         </div>
 
         <div class="flex items-center justify-between pt-2 border-t border-slate-100 mt-2">
           <span class="text-xs font-semibold text-slate-600">
-            Mandated Buffer Stock: <strong class="text-slate-900">15 Packets</strong>
+            <span id="txt-mandated-buffer-lbl">Mandated Buffer Stock:</span> <strong class="text-slate-900" id="txt-buffer-val">15 Packets</strong>
           </span>
           <span id="stockStatusBadge" class="text-xs font-extrabold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-lg flex items-center gap-1">
             ✓ Adequate Stock
@@ -225,10 +221,10 @@
         </div>
       </div>
 
-      <!-- CARD 3: STOCK ALERT MONITOR (CDPO) -->
-      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm relative overflow-hidden flex flex-col justify-between">
+      <!-- CARD 3: STOCK ALERT MONITOR -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between">
         <div class="flex justify-between items-start">
-          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">STOCK ALERT MONITOR (CDPO)</span>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500" id="txt-card3-title">STOCK ALERT MONITOR (CDPO)</span>
           <span id="alertStatusTag" class="bg-emerald-100 text-emerald-800 text-[11px] font-extrabold px-2 py-0.5 rounded">Normal</span>
         </div>
 
@@ -242,9 +238,9 @@
 
         <div class="flex items-center justify-between pt-3 border-t border-slate-100">
           <div class="text-xs text-slate-600 font-semibold">
-            Minimum Safety Buffer: <span class="font-bold text-slate-900">૧૫ પેકેટ્સ</span>
+            <span id="txt-safety-buffer-lbl">Minimum Safety Buffer:</span> <span class="font-bold text-slate-900" id="txt-safety-buffer-qty">15 Packets</span>
           </div>
-          <span class="text-xs font-bold text-emerald-700 flex items-center gap-1">
+          <span class="text-xs font-bold text-emerald-700 flex items-center gap-1" id="txt-normal-status-tag">
             <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i> Normal
           </span>
         </div>
@@ -252,18 +248,18 @@
 
     </div>
 
-    <!-- Row 2: Live Nutrition Intelligence (Attendance + Meal Usage Calculator) -->
+    <!-- Row 2: Attendance & Daily Cooking Deductions -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-      <!-- Column 1 & 2: Daily Meal Cooking Register (30g & 50g Norms) -->
+      <!-- Daily Meal Cooking Register (30g & 50g) -->
       <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
         <div class="flex justify-between items-center border-b border-slate-100 pb-3">
           <div>
             <h2 class="text-sm font-black text-slate-900 flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
-              <span>દૈનિક ભોજન અને કાચી સામગ્રી વપરાશ (Daily Meal Intelligence)</span>
+              <span id="txt-meal-table-heading">દૈનિક ભોજન અને કાચી સામગ્રી વપરાશ (Daily Meal Intelligence)</span>
             </h2>
-            <p class="text-xs text-slate-400 mt-0.5">Meal 1: Breakfast (30g/student) • Meal 2: Lunch (50g/student) [ICDS Gujarat Norms]</p>
+            <p class="text-xs text-slate-400 mt-0.5" id="txt-meal-table-sub">Meal 1: Breakfast (30g/student) • Meal 2: Lunch (50g/student) [ICDS Gujarat Norms]</p>
           </div>
           <span class="text-xs bg-orange-50 text-orange-800 border border-orange-200 font-bold px-2.5 py-1 rounded-full font-mono">
             30g / 50g Formula
@@ -274,26 +270,24 @@
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-y">
               <tr>
-                <th class="p-2.5">સમય</th>
-                <th class="p-2.5">ભોજન પ્રકાર</th>
-                <th class="p-2.5">મેનૂ (Menu)</th>
-                <th class="p-2.5">હાજર બાળકો</th>
-                <th class="p-2.5">કુલ કપાત (Total Grams)</th>
-                <th class="p-2.5 text-right pr-4">બાકી સિલક</th>
+                <th class="p-2.5" id="th-m-time">સમય</th>
+                <th class="p-2.5" id="th-m-type">ભોજન પ્રકાર</th>
+                <th class="p-2.5" id="th-m-menu">મેનૂ (Menu)</th>
+                <th class="p-2.5" id="th-m-kids">હાજર બાળકો</th>
+                <th class="p-2.5" id="th-m-deduct">કુલ કપાત (Total Grams)</th>
+                <th class="p-2.5 text-right pr-4" id="th-m-bal">બાકી સિલક</th>
               </tr>
             </thead>
-            <tbody id="sup-meal-tbody" class="divide-y divide-slate-100 font-medium">
-              <!-- Dynamically populated -->
-            </tbody>
+            <tbody id="sup-meal-tbody" class="divide-y divide-slate-100 font-medium"></tbody>
           </table>
         </div>
       </div>
 
-      <!-- Column 3: 10 Students Live Attendance Status -->
+      <!-- 10 Students Live Attendance Roster -->
       <div class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3 flex flex-col justify-between">
         <div class="flex justify-between items-center border-b border-slate-100 pb-2">
           <div>
-            <h3 class="text-sm font-black text-slate-900">આજની વિદ્યાર્થી હાજરી</h3>
+            <h3 class="text-sm font-black text-slate-900" id="txt-att-heading">આજની વિદ્યાર્થી હાજરી</h3>
             <p class="text-xs text-slate-400">10 Registered Model Roster</p>
           </div>
           <span id="sup-att-count-badge" class="text-xs bg-emerald-100 text-emerald-800 font-black px-2.5 py-0.5 rounded-full">
@@ -301,31 +295,27 @@
           </span>
         </div>
 
-        <div id="sup-attendance-grid" class="grid grid-cols-2 gap-2 text-xs flex-1 overflow-y-auto max-h-[220px] no-scrollbar">
-          <!-- Populated from attendance node -->
-        </div>
+        <div id="sup-attendance-grid" class="grid grid-cols-2 gap-2 text-xs flex-1 overflow-y-auto max-h-[220px] no-scrollbar"></div>
 
         <div class="p-2.5 bg-slate-50 rounded-xl border text-[11px] text-slate-500 font-medium flex justify-between items-center">
-          <span>હાજરી વેરિફિકેશન:</span>
-          <span class="text-emerald-700 font-bold">✓ Geo-fence Verified</span>
+          <span id="txt-geofence-lbl">હાજરી વેરિફિકેશન:</span>
+          <span class="text-emerald-700 font-bold" id="txt-geofence-val">✓ Geo-fence Verified</span>
         </div>
       </div>
 
     </div>
 
-    <!-- Row 3: Itemized Inventory Status (Direct Packets & Bulk Staples) -->
+    <!-- Row 3: Itemized Inventory Status Grid -->
     <div class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
         <div>
-          <h2 class="text-sm font-black text-slate-900">આંગણવાડી ગોડાઉન સ્ટોક લેજર (Detailed Pantry Inventory)</h2>
-          <p class="text-xs text-slate-400">સરકારી પેકેટ્સ (THR) અને રાંધવાના અનાજની લાઈવ સિલક</p>
+          <h2 class="text-sm font-black text-slate-900" id="txt-pantry-heading">આંગણવાડી ગોડાઉન સ્ટોક લેજર (Detailed Pantry Inventory)</h2>
+          <p class="text-xs text-slate-400" id="txt-pantry-sub">સરકારી પેકેટ્સ (THR) અને રાંધવાના અનાજની લાઈવ સિલક</p>
         </div>
         <span class="text-xs bg-slate-100 text-slate-700 font-extrabold px-3 py-1 rounded-lg">AWC-10103 Pantry</span>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs" id="sup-inventory-grid">
-        <!-- Injected via JS -->
-      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs" id="sup-inventory-grid"></div>
     </div>
 
     <!-- Row 4: Real-time Stock Transactions & Audit Register (Screenshot Match) -->
@@ -336,29 +326,29 @@
         <div>
           <h2 class="text-base font-black text-slate-900 flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-            <span>Real-time Stock Transactions & Audit Register</span>
+            <span id="txt-audit-heading">Real-time Stock Transactions & Audit Register</span>
           </h2>
           <p class="text-xs text-slate-400 mt-0.5">
-            Itemized chronological log of all stock received (inward) and distributed by smartphone app — 
+            <span id="txt-audit-sub">Itemized chronological log of all stock received (inward) and distributed by smartphone app — </span>
             <span id="tableCentreSubtext" class="font-bold text-slate-700">04 - Vadtal (Anand) (AW-VAD-04)</span>
           </p>
         </div>
 
-        <!-- Search Bar and Filter Dropdowns -->
+        <!-- Search Bar and Action Filter -->
         <div class="flex items-center gap-2.5">
           <div class="relative">
-            <input type="text" id="auditSearchInput" onkeyup="filterAuditTable()" placeholder="Search village, centre or action..." class="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-64 focus:outline-none focus:ring-1 focus:ring-amber-500">
+            <input type="text" id="auditSearchInput" onkeyup="filterAuditTable()" placeholder="Search..." class="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-64 focus:outline-none focus:ring-1 focus:ring-amber-500">
             <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5"></i>
           </div>
 
           <select id="actionTypeFilter" onchange="filterAuditTable()" class="text-xs bg-white border border-slate-200 rounded-lg py-1.5 px-2.5 font-bold text-slate-700 cursor-pointer focus:outline-none">
-            <option value="all">All Actions</option>
-            <option value="distribution">Daily Distribution (Usage)</option>
-            <option value="inward">Stock Inward (+)</option>
+            <option value="all" id="opt-act-all">All Actions</option>
+            <option value="distribution" id="opt-act-dist">Daily Distribution (Usage)</option>
+            <option value="inward" id="opt-act-inw">Stock Inward (+)</option>
           </select>
 
           <span class="text-xs bg-slate-100 text-slate-600 font-extrabold px-3 py-1.5 rounded-lg border border-slate-200">
-            <span id="totalRecordsCount">75</span> Records
+            <span id="totalRecordsCount">6</span> <span id="txt-records-lbl">Records</span>
           </span>
         </div>
       </div>
@@ -369,16 +359,14 @@
           <thead class="bg-slate-50 text-slate-500 uppercase font-black tracking-wider border-y border-slate-200/90">
             <tr>
               <th class="p-3 w-10">#</th>
-              <th class="p-3">TIMESTAMP (IST)</th>
-              <th class="p-3">CENTRE / VILLAGE NAME</th>
-              <th class="p-3">ACTION TAKEN</th>
-              <th class="p-3 text-center">PACKETS CHANGED</th>
-              <th class="p-3 text-right pr-6">RESULTING STOCK BALANCE</th>
+              <th class="p-3" id="th-t-time">TIMESTAMP (IST)</th>
+              <th class="p-3" id="th-t-centre">CENTRE / VILLAGE NAME</th>
+              <th class="p-3" id="th-t-action">ACTION TAKEN</th>
+              <th class="p-3 text-center" id="th-t-change">PACKETS CHANGED</th>
+              <th class="p-3 text-right pr-6" id="th-t-result">RESULTING STOCK BALANCE</th>
             </tr>
           </thead>
-          <tbody id="auditTableBody" class="divide-y divide-slate-100 font-medium">
-            <!-- Dynamically populated rows -->
-          </tbody>
+          <tbody id="auditTableBody" class="divide-y divide-slate-100 font-medium"></tbody>
         </table>
       </div>
 
@@ -389,7 +377,7 @@
       <div class="p-6 bg-white space-y-4">
         <div class="text-center border-b pb-3">
           <h1 class="text-base font-black">મહિલા અને બાળ વિકાસ વિભાગ, ગુજરાત સરકાર</h1>
-          <p class="text-xs font-bold text-slate-700">સત્તાવાર આંગણવાડી માસિક પોષણ સ્ટોક પત્રક (Monthly Progress Report - MPR)</p>
+          <p class="text-xs font-bold text-slate-700">આંગણવાડી સત્તાવાર માસિક પોષણ સ્ટોક પત્રક (Monthly Progress Report - MPR)</p>
           <p class="text-[10px] text-slate-500">કેન્દ્ર: ૦૪ - વડતાલ • તાલુકો: આણંદ ગ્રામ્ય • જિલ્લો: આણંદ</p>
         </div>
         <table class="w-full text-left text-xs border border-slate-300">
@@ -403,10 +391,6 @@
           </thead>
           <tbody id="print-mpr-tbody" class="divide-y divide-slate-200"></tbody>
         </table>
-        <div class="pt-8 flex justify-between text-xs font-bold">
-          <p>આંગણવાડી કાર્યકરની સહી: ___________________</p>
-          <p>મુખ્ય સેવિકા / CDPO ની સહી: ___________________</p>
-        </div>
       </div>
     </div>
 
@@ -420,16 +404,13 @@
       
       <div class="flex justify-between items-center border-b pb-3">
         <div>
-          <h3 class="text-base font-black text-slate-900">આંગણવાડી કેન્દ્ર પસંદ કરો (Select Centre)</h3>
-          <p class="text-xs text-slate-500">Live Simulation for Anand Rural Block</p>
+          <h3 class="text-base font-black text-slate-900" id="txt-modal-heading">આંગણવાડી કેન્દ્ર પસંદ કરો (Select Centre)</h3>
+          <p class="text-xs text-slate-500">Anand District Demonstration Network</p>
         </div>
         <button onclick="closeCentreModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold cursor-pointer">✕</button>
       </div>
 
-      <!-- Quick Centre Cards -->
-      <div class="space-y-2.5 max-h-[350px] overflow-y-auto pr-1" id="centresListContainer">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="space-y-2.5 max-h-[350px] overflow-y-auto pr-1" id="centresListContainer"></div>
 
       <div class="pt-2 border-t flex justify-end">
         <button onclick="closeCentreModal()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 cursor-pointer">Cancel</button>
@@ -439,7 +420,7 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 5. REALTIME FIREBASE SYNC & CLIENT CONTROLLER            -->
+  <!-- 5. COMPLETE LOCALIZATION & REALTIME SYNC JAVASCRIPT      -->
   <!-- ======================================================== -->
   <script>
     const firebaseConfig = {
@@ -449,89 +430,304 @@
     const db = firebase.database();
     const AWC_PATH = "awc_10103";
 
+    // Complete Bilingual Dictionary
+    const I18N = {
+      en: {
+        langBtnLabel: "ગુજરાતી",
+        govtHeader: "GOVERNMENT OF GUJARAT • WCDD (ICDS ANAND)",
+        portalTitle: "PoshanSetu Desktop Monitoring Portal",
+        portalSubtitle: "Child Development Project Officer (CDPO) & Collector Office, Anand — Live Stock & Meal Tracker",
+        rtdbStatus: "RTDB Connected (Live)",
+        clockLabel: "Indian Standard Time (IST)",
+        btnPdf: "Download PDF Report",
+        districtLabel: "District: Anand",
+        talukaLabel: "Taluka:",
+        sectorLabel: "Sector:",
+        projectLabel: "Project:",
+        btnChangeCentre: "Change / Select Centre",
+        card1Title: "SELECTED ANGANWADI CENTRE",
+        lblTaluka: "Taluka:",
+        lblSector: "Sector:",
+        lblSupervisor: "Supervisor:",
+        quickChange: "Change",
+        card2Title: "LIVE BALBHOG BALANCE",
+        badgeSynced: "Live Synced",
+        unitPackets: "Packets",
+        lastUpdatedLbl: "Last Updated:",
+        mandatedBufferLbl: "Mandated Buffer Stock:",
+        card3Title: "STOCK ALERT MONITOR (CDPO)",
+        safetyBufferLbl: "Minimum Safety Buffer:",
+        safetyBufferQty: "15 Packets",
+        adequateStock: "✓ Adequate Stock",
+        lowStockAlert: "⚠️ Low Stock Alert",
+        adequateLevelHead: "Adequate Stock Level",
+        lowLevelHead: "Low Stock Level!",
+        adequateDesc: "Stock balance is above the mandated 15 packets safety threshold.",
+        lowDesc: "Stock balance is below the mandated 15 packets safety threshold. Immediate replenishment required.",
+        normalStatusTag: "Normal",
+        criticalTag: "Critical",
+        mealTableHeading: "Daily Meal & Raw Staple Consumption (Meal Intelligence)",
+        mealTableSub: "Meal 1: Breakfast (30g/student) • Meal 2: Lunch (50g/student) [ICDS Gujarat Norms]",
+        thMTime: "Time",
+        thMType: "Meal Type",
+        thMMenu: "Menu Served",
+        thMKids: "Students Present",
+        thMDeduct: "Total Grams",
+        thMBal: "Closing Balance",
+        attHeading: "Today's Student Attendance",
+        geofenceLbl: "Attendance Verification:",
+        geofenceVal: "✓ Geo-fence Verified",
+        pantryHeading: "Anganwadi Pantry Inventory (Stock Ledger)",
+        pantrySub: "Take-Home Rations (THR) and bulk cooking materials balance",
+        auditHeading: "Real-time Stock Transactions & Audit Register",
+        auditSub: "Itemized chronological log of all stock received (inward) and distributed by smartphone app — ",
+        searchPlaceholder: "Search village, centre or action...",
+        recordsLbl: "Records",
+        thTTime: "TIMESTAMP (IST)",
+        thTCentre: "CENTRE / VILLAGE NAME",
+        thTAction: "ACTION TAKEN",
+        thTChange: "PACKETS CHANGED",
+        thTResult: "RESULTING STOCK BALANCE",
+        modalHeading: "Select Anganwadi Centre",
+        optTalRural: "Anand Rural",
+        optTalUrban: "Anand Urban",
+        optTalPetlad: "Petlad",
+        optActAll: "All Actions",
+        optActDist: "Daily Distribution (Usage)",
+        optActInw: "Stock Inward (+)"
+      },
+      gu: {
+        langBtnLabel: "English",
+        govtHeader: "ગુજરાત સરકાર • મહિલા અને બાળ વિકાસ વિભાગ (ICDS આણંદ)",
+        portalTitle: "પોષણ સેતુ ડેસ્કટોપ મોનિટરિંગ પોર્ટલ",
+        portalSubtitle: "બાળ વિકાસ પ્રોજેક્ટ અધિકારી (CDPO) અને કલેક્ટર કચેરી, આણંદ — લાઈવ સ્ટોક અને ભોજન ટ્રેકર",
+        rtdbStatus: "ક્લાઉડ લાઈવ સિંક સક્રિય",
+        clockLabel: "ભારતીય માનક સમય (IST)",
+        btnPdf: "સત્તાવાર રિપોર્ટ પ્રિન્ટ કરો",
+        districtLabel: "જિલ્લો: આણંદ",
+        talukaLabel: "તાલુકો:",
+        sectorLabel: "સેક્ટર:",
+        projectLabel: "પ્રોજેક્ટ:",
+        btnChangeCentre: "કેન્દ્ર બદલો / પસંદ કરો",
+        card1Title: "પસંદ કરેલ આંગણવાડી કેન્દ્ર",
+        lblTaluka: "તાલુકો:",
+        lblSector: "સેક્ટર:",
+        lblSupervisor: "મુખ્ય સેવિકા:",
+        quickChange: "બદલો",
+        card2Title: "લાઈવ બાલભોગ સિલક",
+        badgeSynced: "લાઈવ સિંક",
+        unitPackets: "પેકેટ",
+        lastUpdatedLbl: "છેલ્લો ફેરફાર:",
+        mandatedBufferLbl: "નિયત બફર સ્ટોક:",
+        card3Title: "સ્ટોક એલર્ટ મોનિટર (CDPO)",
+        safetyBufferLbl: "લઘુત્તમ સુરક્ષા જથ્થો:",
+        safetyBufferQty: "૧૫ પેકેટ્સ",
+        adequateStock: "✓ પૂરતો સ્ટોક ઉપલબ્ધ",
+        lowStockAlert: "⚠️ ઓછો સ્ટોક ચેતવણી",
+        adequateLevelHead: "પૂરતો સ્ટોક ઉપલબ્ધ છે",
+        lowLevelHead: "સ્ટોક ખૂટી ગયો છે!",
+        adequateDesc: "સ્ટોક સિલક નિયત ૧૫ પેકેટની સુરક્ષા મર્યાદા કરતાં વધુ છે.",
+        lowDesc: "સ્ટોક ૧૫ પેકેટથી ઓછો છે. તાત્કાલિક તાલુકા ગોડાઉનથી રિસ્ટોક જરૂરી છે.",
+        normalStatusTag: "સામાન્ય",
+        criticalTag: "ગંભીર",
+        mealTableHeading: "દૈનિક ભોજન અને કાચી સામગ્રી વપરાશ (Daily Meal Intelligence)",
+        mealTableSub: "નાસ્તો (૩૦ ગ્રામ/બાળક) • બપોરનું ભોજન (૫૦ ગ્રામ/બાળક) [ગુજરાત ICDS નિયમ]",
+        thMTime: "સમય",
+        thMType: "ભોજન પ્રકાર",
+        thMMenu: "મેનૂ (Menu)",
+        thMKids: "હાજર બાળકો",
+        thMDeduct: "કુલ કપાત (ગ્રામ)",
+        thMBal: "આખર સિલક",
+        attHeading: "આજની વિદ્યાર્થી હાજરી",
+        geofenceLbl: "હાજરી વેરિફિકેશન:",
+        geofenceVal: "✓ જીઓ-ફેન્સ પ્રમાણિત",
+        pantryHeading: "આંગણવાડી ગોડાઉન સ્ટોક લેજર (Detailed Pantry Inventory)",
+        pantrySub: "સરકારી પેકેટ્સ (THR) અને રાંધવાના અનાજની લાઈવ સિલક",
+        auditHeading: "લાઈવ સ્ટોક ટ્રાન્ઝેક્શન અને ઓડિટ રજીસ્ટર",
+        auditSub: "મોબાઈલ એપ દ્વારા કરવામાં આવેલ આવક અને વપરાશનો હિસાબ — ",
+        searchPlaceholder: "શોધો (ગામ, કેન્દ્ર અથવા વિગત)...",
+        recordsLbl: "નોંધણીઓ",
+        thTTime: "સમય (IST)",
+        thTCentre: "કેન્દ્ર / ગામનું નામ",
+        thTAction: "કામગીરી (વિગત)",
+        thTChange: "ફેરફાર",
+        thTResult: "નવી સિલક",
+        modalHeading: "આંગણવાડી કેન્દ્ર પસંદ કરો",
+        optTalRural: "આણંદ ગ્રામ્ય",
+        optTalUrban: "આણંદ શહેર",
+        optTalPetlad: "પેટલાદ",
+        optActAll: "બધી કામગીરી",
+        optActDist: "દૈનિક વિતરણ (વપરાશ)",
+        optActInw: "સ્ટોક આવક (+)"
+      }
+    };
+
+    let activeLang = 'gu'; // 'gu' or 'en'
+
     // Master Directory of Centres in Anand Rural Block
     const CENTRES_DATABASE = {
       "AW-VAD-04": {
         code: "AW-VAD-04",
         name: "04 - Vadtal (Anand)",
+        nameGu: "૦૪ - વડતાલ (આણંદ)",
         taluka: "Anand Rural",
+        talukaGu: "આણંદ ગ્રામ્ય",
         sector: "Vadtal-01",
+        sectorGu: "વડતાલ-૦૧",
         worker: "Smt. Bhavanaben Patel",
+        workerGu: "શ્રીમતી ભાવનાબેન પટેલ",
         supervisor: "Shardaben Shah",
+        supervisorGu: "શારદાબેન શાહ",
         currentBalance: 149,
         villageNameGu: "૦૪ - વડતાલ",
         isLow: false,
         inventory: {
-          balshakti: 124,
-          matrushakti: 48,
-          purnashakti: 35,
-          rice: 145,
-          dal: 38,
-          oil: 22
+          balshakti: 124, matrushakti: 48, purnashakti: 35,
+          rice: 145, dal: 38, oil: 22
         }
       },
       "AW-BAK-02": {
         code: "AW-BAK-02",
         name: "02 - Bakrol Patiya",
+        nameGu: "૦૨ - બાકરોલ પાટિયા",
         taluka: "Anand Rural",
+        talukaGu: "આણંદ ગ્રામ્ય",
         sector: "Bakrol-02",
+        sectorGu: "બાકરોલ-૦૨",
         worker: "Smt. Jasumatiben Vankar",
+        workerGu: "શ્રીમતી જસુમતીબેન વણકર",
         supervisor: "Rekhaben Patel",
-        currentBalance: 12, // Low stock simulation
-        villageNameGu: "૦૨ - બાકરોલ પાટિયા",
+        supervisorGu: "રેખાબેન પટેલ",
+        currentBalance: 12,
+        villageNameGu: "૦૨ - બાકરોલ",
         isLow: true,
         inventory: {
-          balshakti: 10,
-          matrushakti: 2,
-          purnashakti: 0,
-          rice: 18,
-          dal: 4,
-          oil: 2
+          balshakti: 10, matrushakti: 2, purnashakti: 0,
+          rice: 18, dal: 4, oil: 2
         }
       },
       "AW-MOG-07": {
         code: "AW-MOG-07",
         name: "07 - Mogri Gam",
+        nameGu: "૦૭ - મોગરી ગામ",
         taluka: "Anand Rural",
+        talukaGu: "આણંદ ગ્રામ્ય",
         sector: "Vadtal-01",
+        sectorGu: "વડતાલ-૦૧",
         worker: "Smt. Gitaben Rathod",
+        workerGu: "શ્રીમતી ગીતાબેન રાઠોડ",
         supervisor: "Shardaben Shah",
+        supervisorGu: "શારદાબેન શાહ",
         currentBalance: 88,
-        villageNameGu: "૦૭ - મોગરી ગામ",
+        villageNameGu: "૦૭ - મોગરી",
         isLow: false,
         inventory: {
-          balshakti: 70,
-          matrushakti: 18,
-          purnashakti: 14,
-          rice: 90,
-          dal: 20,
-          oil: 10
+          balshakti: 70, matrushakti: 18, purnashakti: 14,
+          rice: 90, dal: 20, oil: 10
         }
       },
       "AW-KAR-01": {
         code: "AW-KAR-01",
         name: "01 - Karamsad Sim",
+        nameGu: "૦૧ - કરમસદ સીમ",
         taluka: "Anand Rural",
+        talukaGu: "આણંદ ગ્રામ્ય",
         sector: "Karamsad-03",
+        sectorGu: "કરમસદ-૦૩",
         worker: "Smt. Meenaben Solanki",
+        workerGu: "શ્રીમતી મીનાબેન સોલંકી",
         supervisor: "Anilaben Vaghela",
+        supervisorGu: "અનિલાબેન વાઘેલા",
         currentBalance: 65,
-        villageNameGu: "૦૧ - કરમસદ સીમ",
+        villageNameGu: "૦૧ - કરમસદ",
         isLow: false,
         inventory: {
-          balshakti: 50,
-          matrushakti: 15,
-          purnashakti: 10,
-          rice: 80,
-          dal: 18,
-          oil: 8
+          balshakti: 50, matrushakti: 15, purnashakti: 10,
+          rice: 80, dal: 18, oil: 8
         }
       }
     };
 
     let activeCentreId = "AW-VAD-04";
 
-    // 1. Live Clock
+    // 1. Language Toggle Controller
+    function toggleLang() {
+      activeLang = activeLang === 'gu' ? 'en' : 'gu';
+      applyLocalization();
+    }
+
+    function applyLocalization() {
+      const d = I18N[activeLang];
+      const isGu = activeLang === 'gu';
+
+      document.getElementById('langBtnLabel').innerText = d.langBtnLabel;
+      document.getElementById('txt-govt-header').innerText = d.govtHeader;
+      document.getElementById('txt-portal-title').innerText = d.portalTitle;
+      document.getElementById('txt-portal-subtitle').innerText = d.portalSubtitle;
+      document.getElementById('txt-rtdb-status').innerText = d.rtdbStatus;
+      document.getElementById('txt-clock-label').innerText = d.clockLabel;
+      document.getElementById('txt-btn-pdf').innerText = d.btnPdf;
+      document.getElementById('txt-district-label').innerText = d.districtLabel;
+      document.getElementById('txt-taluka-label').innerText = d.talukaLabel;
+      document.getElementById('txt-sector-label').innerText = d.sectorLabel;
+      document.getElementById('txt-project-label').innerText = d.projectLabel;
+      document.getElementById('txt-btn-change-centre').innerText = d.btnChangeCentre;
+
+      document.getElementById('txt-card1-title').innerText = d.card1Title;
+      document.getElementById('lbl-c-taluka').innerText = d.lblTaluka;
+      document.getElementById('lbl-c-sector').innerText = d.lblSector;
+      document.getElementById('lbl-c-supervisor').innerText = d.lblSupervisor;
+      document.getElementById('txt-btn-quick-change').innerText = d.quickChange;
+
+      document.getElementById('txt-card2-title').innerText = d.card2Title;
+      document.getElementById('txt-badge-synced').innerText = d.badgeSynced;
+      document.getElementById('txt-units-packets').innerText = d.unitPackets;
+      document.getElementById('txt-last-updated-lbl').innerText = d.lastUpdatedLbl;
+      document.getElementById('txt-mandated-buffer-lbl').innerText = d.mandatedBufferLbl;
+
+      document.getElementById('txt-card3-title').innerText = d.card3Title;
+      document.getElementById('txt-safety-buffer-lbl').innerText = d.safetyBufferLbl;
+      document.getElementById('txt-safety-buffer-qty').innerText = d.safetyBufferQty;
+
+      document.getElementById('txt-meal-table-heading').innerText = d.mealTableHeading;
+      document.getElementById('txt-meal-table-sub').innerText = d.mealTableSub;
+      document.getElementById('th-m-time').innerText = d.thMTime;
+      document.getElementById('th-m-type').innerText = d.thMType;
+      document.getElementById('th-m-menu').innerText = d.thMMenu;
+      document.getElementById('th-m-kids').innerText = d.thMKids;
+      document.getElementById('th-m-deduct').innerText = d.thMDeduct;
+      document.getElementById('th-m-bal').innerText = d.thMBal;
+
+      document.getElementById('txt-att-heading').innerText = d.attHeading;
+      document.getElementById('txt-geofence-lbl').innerText = d.geofenceLbl;
+      document.getElementById('txt-geofence-val').innerText = d.geofenceVal;
+
+      document.getElementById('txt-pantry-heading').innerText = d.pantryHeading;
+      document.getElementById('txt-pantry-sub').innerText = d.pantrySub;
+
+      document.getElementById('txt-audit-heading').innerText = d.auditHeading;
+      document.getElementById('txt-audit-sub').innerText = d.auditSub;
+      document.getElementById('auditSearchInput').placeholder = d.searchPlaceholder;
+      document.getElementById('txt-records-lbl').innerText = d.recordsLbl;
+
+      document.getElementById('th-t-time').innerText = d.thTTime;
+      document.getElementById('th-t-centre').innerText = d.thTCentre;
+      document.getElementById('th-t-action').innerText = d.thTAction;
+      document.getElementById('th-t-change').innerText = d.thTChange;
+      document.getElementById('th-t-result').innerText = d.thTResult;
+
+      document.getElementById('txt-modal-heading').innerText = d.modalHeading;
+      document.getElementById('opt-tal-rural').innerText = d.optTalRural;
+      document.getElementById('opt-tal-urban').innerText = d.optTalUrban;
+      document.getElementById('opt-tal-petlad').innerText = d.optTalPetlad;
+      document.getElementById('opt-act-all').innerText = d.optActAll;
+      document.getElementById('opt-act-dist').innerText = d.optActDist;
+      document.getElementById('opt-act-inw').innerText = d.optActInw;
+
+      renderActiveCentre(activeCentreId);
+    }
+
+    // 2. Clock Controller
     function updateClock() {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
@@ -539,42 +735,50 @@
       document.getElementById('lastUpdatedClock').innerText = timeStr.toLowerCase();
     }
 
-    // 2. Render Active Centre Data
+    // 3. Render Active Centre Data to Screen
     function renderActiveCentre(centreId) {
       activeCentreId = centreId;
       const c = CENTRES_DATABASE[centreId];
       if (!c) return;
 
+      const isGu = activeLang === 'gu';
+      const d = I18N[activeLang];
+
       document.getElementById('centreCodeBadge').innerText = c.code;
-      document.getElementById('centreNameDisplay').innerText = c.name;
-      document.getElementById('centreTalukaText').innerText = c.taluka;
-      document.getElementById('centreSectorText').innerText = c.sector;
-      document.getElementById('centreSupervisorText').innerText = c.supervisor;
-      document.getElementById('centreWorkerDisplay').innerText = c.worker;
-      document.getElementById('tableCentreSubtext').innerText = `${c.name} (${c.code})`;
+      document.getElementById('centreNameDisplay').innerText = isGu ? c.nameGu : c.name;
+      document.getElementById('centreTalukaText').innerText = isGu ? c.talukaGu : c.taluka;
+      document.getElementById('centreSectorText').innerText = isGu ? c.sectorGu : c.sector;
+      document.getElementById('centreSupervisorText').innerText = isGu ? c.supervisorGu : c.supervisor;
+      document.getElementById('centreWorkerDisplay').innerText = isGu ? c.workerGu : c.worker;
+      document.getElementById('tableCentreSubtext').innerText = `${isGu ? c.nameGu : c.name} (${c.code})`;
       document.getElementById('liveBalanceVal').innerText = c.currentBalance;
 
       const statusBadge = document.getElementById('stockStatusBadge');
       const alertTag = document.getElementById('alertStatusTag');
       const alertHeading = document.getElementById('alertStatusHeading');
       const alertDesc = document.getElementById('alertStatusDesc');
+      const normalStatus = document.getElementById('txt-normal-status-tag');
 
       if (c.isLow || c.currentBalance < 15) {
         statusBadge.className = "text-xs font-extrabold text-rose-800 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-lg flex items-center gap-1";
-        statusBadge.innerText = "⚠️ Low Stock Alert";
+        statusBadge.innerText = d.lowStockAlert;
         alertTag.className = "bg-rose-100 text-rose-800 text-[11px] font-extrabold px-2 py-0.5 rounded";
-        alertTag.innerText = "Critical";
+        alertTag.innerText = d.criticalTag;
         alertHeading.className = "text-lg font-black text-rose-800";
-        alertHeading.innerText = "Low Stock Level!";
-        alertDesc.innerText = "Stock balance is below the mandated 15 packets safety threshold. Immediate replenishment required.";
+        alertHeading.innerText = d.lowLevelHead;
+        alertDesc.innerText = d.lowDesc;
+        normalStatus.className = "text-xs font-bold text-rose-700 flex items-center gap-1";
+        normalStatus.innerHTML = `<i data-lucide="alert-triangle" class="w-3.5 h-3.5 stroke-[3]"></i> ${d.criticalTag}`;
       } else {
         statusBadge.className = "text-xs font-extrabold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-lg flex items-center gap-1";
-        statusBadge.innerText = "✓ Adequate Stock";
+        statusBadge.innerText = d.adequateStock;
         alertTag.className = "bg-emerald-100 text-emerald-800 text-[11px] font-extrabold px-2 py-0.5 rounded";
-        alertTag.innerText = "Normal";
+        alertTag.innerText = d.normalStatusTag;
         alertHeading.className = "text-lg font-black text-emerald-800";
-        alertHeading.innerText = "Adequate Stock Level";
-        alertDesc.innerText = "Stock balance is above the mandated 15 packets safety threshold.";
+        alertHeading.innerText = d.adequateLevelHead;
+        alertDesc.innerText = d.adequateDesc;
+        normalStatus.className = "text-xs font-bold text-emerald-700 flex items-center gap-1";
+        normalStatus.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i> ${d.normalStatusTag}`;
       }
 
       renderPantryGrid(c.inventory);
@@ -582,41 +786,43 @@
       lucide.createIcons();
     }
 
-    // 3. Render Pantry Cards (Bal Shakti, Matru Shakti, Rice, Oil, Dal, Atta)
+    // 4. Render Pantry Commodity Badges
     function renderPantryGrid(inv) {
       const container = document.getElementById('sup-inventory-grid');
+      const isGu = activeLang === 'gu';
       container.innerHTML = `
-        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
-          <p class="text-[10px] font-bold text-slate-400">બાલ શક્તિ (500g)</p>
-          <p class="text-base font-black text-blue-700 font-mono mt-1">${inv.balshakti} Pkts</p>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center shadow-xs">
+          <p class="text-[10px] font-bold text-slate-400">${isGu ? 'બાલ શક્તિ (500g)' : 'Bal Shakti (500g)'}</p>
+          <p class="text-base font-black text-blue-700 font-mono mt-1">${inv.balshakti} ${isGu ? 'પેકેટ' : 'Pkts'}</p>
         </div>
-        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
-          <p class="text-[10px] font-bold text-slate-400">માતૃ શક્તિ (1kg)</p>
-          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.matrushakti} Pkts</p>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center shadow-xs">
+          <p class="text-[10px] font-bold text-slate-400">${isGu ? 'માતૃ શક્તિ (1kg)' : 'Matru Shakti (1kg)'}</p>
+          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.matrushakti} ${isGu ? 'પેકેટ' : 'Pkts'}</p>
         </div>
-        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
-          <p class="text-[10px] font-bold text-slate-400">પૂર્ણા શક્તિ (1kg)</p>
-          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.purnashakti} Pkts</p>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center shadow-xs">
+          <p class="text-[10px] font-bold text-slate-400">${isGu ? 'પૂર્ણા શક્તિ (1kg)' : 'Purna Shakti (1kg)'}</p>
+          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.purnashakti} ${isGu ? 'પેકેટ' : 'Pkts'}</p>
         </div>
-        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
-          <p class="text-[10px] font-bold text-slate-400">ચોખા (Rice)</p>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center shadow-xs">
+          <p class="text-[10px] font-bold text-slate-400">${isGu ? 'ચોખા (Rice)' : 'Rice (Grain)'}</p>
           <p class="text-base font-black text-emerald-700 font-mono mt-1">${inv.rice} kg</p>
         </div>
-        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
-          <p class="text-[10px] font-bold text-slate-400">તુવેર દાળ</p>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center shadow-xs">
+          <p class="text-[10px] font-bold text-slate-400">${isGu ? 'તુવેર દાળ' : 'Toor Dal'}</p>
           <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.dal} kg</p>
         </div>
-        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
-          <p class="text-[10px] font-bold text-slate-400">ખાદ્ય તેલ</p>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center shadow-xs">
+          <p class="text-[10px] font-bold text-slate-400">${isGu ? 'તેલ (Oil)' : 'Edible Oil'}</p>
           <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.oil} L</p>
         </div>
       `;
     }
 
-    // 4. Render Screenshot-Style Audit Table
+    // 5. Render Screenshot Table
     function renderAuditTable(centre) {
       const tbody = document.getElementById('auditTableBody');
       tbody.innerHTML = '';
+      const isGu = activeLang === 'gu';
 
       const timestamps = [
         "18/10/2026 11:30:52 am",
@@ -630,7 +836,9 @@
       timestamps.forEach((ts, idx) => {
         const isOdd = idx % 2 === 1;
         const changeVal = idx === 5 ? 50 : -10;
-        const actionLabel = idx === 5 ? "+ Stock Inward (Challan)" : "- Daily Distribution (Usage)";
+        const actionLabel = idx === 5 
+          ? (isGu ? "+ સ્ટોક આવક (ચલણ)" : "+ Stock Inward (Challan)") 
+          : (isGu ? "- દૈનિક વિતરણ (વપરાશ)" : "- Daily Distribution (Usage)");
 
         tbody.innerHTML += `
           <tr class="${isOdd ? 'bg-amber-50/20' : 'bg-white'} hover:bg-slate-50 transition">
@@ -638,7 +846,7 @@
             <td class="p-3 font-mono text-slate-600">${ts}</td>
             <td class="p-3 font-bold text-slate-800 flex items-center gap-1.5">
               <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
-              <span>${centre.villageNameGu}</span>
+              <span>${isGu ? centre.villageNameGu : centre.name}</span>
             </td>
             <td class="p-3">
               <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-bold ${changeVal > 0 ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-blue-50 text-blue-700 border border-blue-200'}">
@@ -647,10 +855,10 @@
               </span>
             </td>
             <td class="p-3 text-center font-black ${changeVal > 0 ? 'text-emerald-700' : 'text-blue-700'} font-mono">
-              ${changeVal > 0 ? `+${changeVal}` : changeVal} pkts
+              ${changeVal > 0 ? `+${changeVal}` : changeVal} ${isGu ? 'પેકેટ' : 'pkts'}
             </td>
             <td class="p-3 text-right pr-6 font-black text-slate-900 font-mono text-sm">
-              ${centre.currentBalance} pkts
+              ${centre.currentBalance} ${isGu ? 'પેકેટ' : 'pkts'}
             </td>
           </tr>
         `;
@@ -659,7 +867,7 @@
       document.getElementById('totalRecordsCount').innerText = timestamps.length;
     }
 
-    // 5. Firebase Live Listeners (Wired to awc_10103)
+    // 6. Firebase Realtime Listeners
     db.ref(`${AWC_PATH}/stock`).on('value', (snap) => {
       const stock = snap.val();
       if (stock && stock.currentTotal !== undefined) {
@@ -670,7 +878,6 @@
       }
     });
 
-    // Meal Logs Listener (30g & 50g)
     db.ref(`${AWC_PATH}/meal_logs`).limitToLast(5).on('value', (snap) => {
       const logs = snap.val();
       const tbody = document.getElementById('sup-meal-tbody');
@@ -683,7 +890,7 @@
             <td class="p-2.5 text-slate-500 font-mono">${entry.time || '11:30 AM'}</td>
             <td class="p-2.5 font-bold text-slate-800">${entry.meal}</td>
             <td class="p-2.5 font-semibold text-emerald-800">${entry.menu}</td>
-            <td class="p-2.5 font-bold font-mono">${entry.studentsServed} બાળકો</td>
+            <td class="p-2.5 font-bold font-mono">${entry.studentsServed} ${activeLang === 'gu' ? 'બાળકો' : 'Students'}</td>
             <td class="p-2.5 font-black text-amber-700 font-mono">${entry.totalGrams} gm (${entry.portionRatio})</td>
             <td class="p-2.5 text-right pr-4 font-black font-mono text-slate-800">${entry.remainingTotalStock} Pkts</td>
           </tr>
@@ -691,12 +898,12 @@
       });
     });
 
-    // Student Attendance Listener
     db.ref(`${AWC_PATH}/attendance`).on('value', (snap) => {
       const att = snap.val();
       if (!att) return;
 
-      document.getElementById('sup-att-count-badge').innerText = `${att.present_count} હાજર / ${att.absent_count} ગેરહાજર`;
+      const isGu = activeLang === 'gu';
+      document.getElementById('sup-att-count-badge').innerText = `${att.present_count} ${isGu ? 'હાજર' : 'Present'} / ${att.absent_count} ${isGu ? 'ગેરહાજર' : 'Absent'}`;
 
       const grid = document.getElementById('sup-attendance-grid');
       grid.innerHTML = '';
@@ -705,7 +912,7 @@
         att.records.forEach(s => {
           grid.innerHTML += `
             <div class="p-2 rounded-xl border flex items-center justify-between ${s.present ? 'bg-emerald-50/70 border-emerald-200' : 'bg-slate-50 border-slate-200'}">
-              <span class="font-bold text-slate-800">${s.nameGu}</span>
+              <span class="font-bold text-slate-800">${isGu ? s.nameGu : s.nameEn}</span>
               <span class="text-[9px] font-black px-1.5 py-0.5 rounded ${s.present ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-100 text-rose-800'}">
                 ${s.present ? '✓' : '✕'}
               </span>
@@ -715,10 +922,11 @@
       }
     });
 
-    // 6. Centre Modal Switcher
+    // 7. Centre Selection Modal Helpers
     function openCentreModal() {
       const container = document.getElementById('centresListContainer');
       container.innerHTML = '';
+      const isGu = activeLang === 'gu';
 
       for (const [id, c] of Object.entries(CENTRES_DATABASE)) {
         const isSelected = id === activeCentreId;
@@ -729,13 +937,13 @@
                 ${c.code.split('-')[1]}
               </div>
               <div>
-                <h4 class="font-bold text-slate-900 text-xs">${c.name}</h4>
-                <p class="text-[11px] text-slate-500 font-medium">Worker: ${c.worker} • ${c.sector}</p>
+                <h4 class="font-bold text-slate-900 text-xs">${isGu ? c.nameGu : c.name}</h4>
+                <p class="text-[11px] text-slate-500 font-medium">${isGu ? c.workerGu : c.worker} • ${isGu ? c.sectorGu : c.sector}</p>
               </div>
             </div>
             <div class="text-right">
               <span class="text-sm font-black ${c.isLow ? 'text-rose-600' : 'text-slate-800'} font-mono">${c.currentBalance} pkts</span>
-              <span class="block text-[10px] font-bold ${c.isLow ? 'text-rose-600' : 'text-emerald-600'}">${c.isLow ? 'Low Stock' : 'Optimal'}</span>
+              <span class="block text-[10px] font-bold ${c.isLow ? 'text-rose-600' : 'text-emerald-600'}">${c.isLow ? (isGu ? 'ઓછો સ્ટોક' : 'Low Stock') : (isGu ? 'પૂરતો સ્ટોક' : 'Optimal')}</span>
             </div>
           </div>
         `;
@@ -772,23 +980,18 @@
       rows.forEach(r => {
         const text = r.innerText.toLowerCase();
         let matchesAction = true;
-        if (a === 'distribution') matchesAction = text.includes('distribution');
-        if (a === 'inward') matchesAction = text.includes('inward');
+        if (a === 'distribution') matchesAction = text.includes('distribution') || text.includes('વિતરણ');
+        if (a === 'inward') matchesAction = text.includes('inward') || text.includes('આવક');
         r.style.display = (text.includes(q) && matchesAction) ? '' : 'none';
       });
     }
 
-    let isGu = true;
-    function toggleLang() {
-      isGu = !isGu;
-      document.getElementById('langBtnLabel').innerText = isGu ? 'ગુજરાતી' : 'English';
-    }
-
+    // Startup Initialization
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       updateClock();
       setInterval(updateClock, 1000);
-      renderActiveCentre("AW-VAD-04");
+      applyLocalization();
     });
   </script>
 </body>
