@@ -16,15 +16,21 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
+  <!-- Firebase App & Realtime Database SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-database-compat.js"></script>
+
   <style>
     body {
       font-family: 'Plus Jakarta Sans', 'Noto Sans Gujarati', system-ui, sans-serif;
       background-color: #F1F5F9;
     }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     @media print {
       body * { visibility: hidden; }
-      #printable-audit, #printable-audit * { visibility: visible; }
-      #printable-audit { position: absolute; left: 0; top: 0; width: 100%; }
+      #printable-mpr, #printable-mpr * { visibility: visible; }
+      #printable-mpr { position: absolute; left: 0; top: 0; width: 100%; }
     }
   </style>
 </head>
@@ -34,12 +40,11 @@
   <!-- 1. TOP NAVY COMMAND HEADER                               -->
   <!-- ======================================================== -->
   <header class="bg-[#0b1329] text-white border-b border-slate-800 px-6 py-3 shadow-md">
-    <div class="max-w-[1550px] mx-auto flex flex-wrap justify-between items-center gap-4">
+    <div class="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
       
-      <!-- Logo & Government Branding -->
+      <!-- Brand & State Government Identity -->
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 bg-white rounded-xl p-1 flex items-center justify-center shadow-sm shrink-0">
-          <!-- PoshanSetu Emblem -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="25 25 450 350" class="w-full h-full">
             <g transform="translate(0, -10)">
               <path d="M 120 178 C 85 142, 105 88, 168 96 C 182 142, 160 188, 120 178 Z" fill="#78B833" />
@@ -64,32 +69,28 @@
             <span class="text-slate-300">WCDD (ICDS ANAND)</span>
           </div>
           <h1 class="text-xl font-extrabold text-white tracking-tight leading-tight">PoshanSetu Desktop Monitoring Portal</h1>
-          <p class="text-[11px] text-slate-400">Child Development Project Officer (CDPO) & Collector Office, Anand — Balbhog Live Stock Tracker</p>
+          <p class="text-[11px] text-slate-400">Child Development Project Officer (CDPO) & Collector Office, Anand — Balbhog & Daily Nutrition Tracker</p>
         </div>
       </div>
 
-      <!-- Header Controls: Language, Cloud Status, Live Clock, Print Button -->
+      <!-- Controls: Language, Cloud Connection, Live Clock, Export PDF -->
       <div class="flex items-center gap-3">
-        <!-- Language Switcher Pill -->
         <button onclick="toggleLang()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-black flex items-center gap-1.5 transition active:scale-95 shadow-sm">
           <i data-lucide="languages" class="w-3.5 h-3.5"></i>
           <span id="langBtnLabel">ગુજરાતી</span>
         </button>
 
-        <!-- RTDB Live Connected Pill -->
         <div class="bg-[#0f1f3d] border border-emerald-500/30 text-emerald-400 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>RTDB Connected (Live)</span>
         </div>
 
-        <!-- Clock Box -->
         <div class="bg-slate-800/80 border border-slate-700/80 px-3.5 py-1 rounded-lg text-right">
           <p class="text-[9px] uppercase tracking-wider text-slate-400 font-bold">Indian Standard Time (IST)</p>
           <p class="text-xs font-black text-white font-mono" id="liveIstClock">11:30:59 IST</p>
         </div>
 
-        <!-- Red Print / PDF Button -->
-        <button onclick="window.print()" class="bg-[#DC2626] hover:bg-red-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-md active:scale-95 transition">
+        <button onclick="window.print()" class="bg-[#DC2626] hover:bg-red-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg flex items-center gap-1.5 shadow-md active:scale-95 transition cursor-pointer">
           <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
           <span>Download PDF Report</span>
         </button>
@@ -102,9 +103,9 @@
   <!-- 2. SUB-BAR: TALUKA, SECTOR & CENTRE ROUTING              -->
   <!-- ======================================================== -->
   <div class="bg-[#121c38] text-white border-b border-slate-800/80 px-6 py-2 text-xs">
-    <div class="max-w-[1550px] mx-auto flex flex-wrap justify-between items-center gap-4">
+    <div class="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
       
-      <!-- Left Filters -->
+      <!-- Filter Selectors -->
       <div class="flex items-center flex-wrap gap-4 font-semibold text-slate-300">
         <div class="flex items-center gap-1.5 text-amber-400">
           <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
@@ -112,19 +113,18 @@
         </div>
         <span class="text-slate-600">|</span>
 
-        <!-- Taluka Dropdown -->
+        <!-- Taluka -->
         <div class="flex items-center gap-1.5">
           <span class="text-slate-400">Taluka:</span>
           <select id="talukaSelector" onchange="handleTalukaChange(this.value)" class="bg-[#1a294f] border border-slate-700 rounded-md px-2 py-0.5 text-white font-bold cursor-pointer focus:outline-none">
             <option value="anand_rural" selected>Anand Rural</option>
             <option value="anand_urban">Anand Urban</option>
             <option value="petlad">Petlad</option>
-            <option value="khambhat">Khambhat</option>
           </select>
         </div>
         <span class="text-slate-600">|</span>
 
-        <!-- Sector Dropdown -->
+        <!-- Sector -->
         <div class="flex items-center gap-1.5">
           <span class="text-slate-400">Sector:</span>
           <select id="sectorSelector" onchange="handleSectorChange(this.value)" class="bg-[#1a294f] border border-slate-700 rounded-md px-2 py-0.5 text-white font-bold cursor-pointer focus:outline-none">
@@ -140,9 +140,9 @@
         </div>
       </div>
 
-      <!-- Right Action: Change Centre Modal Trigger -->
+      <!-- Change Centre Button -->
       <div class="flex items-center gap-3">
-        <button onclick="openCentreModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1 rounded-md text-xs font-black flex items-center gap-1.5 active:scale-95 transition shadow-sm">
+        <button onclick="openCentreModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 px-3 py-1 rounded-md text-xs font-black flex items-center gap-1.5 active:scale-95 transition shadow-sm cursor-pointer">
           <i data-lucide="building" class="w-3.5 h-3.5"></i>
           <span>Change / Select Centre</span>
         </button>
@@ -155,9 +155,9 @@
   <!-- ======================================================== -->
   <!-- 3. MAIN DASHBOARD CONTENT AREA                           -->
   <!-- ======================================================== -->
-  <main class="max-w-[1550px] mx-auto p-6 w-full space-y-6 flex-1">
+  <main class="max-w-[1600px] mx-auto p-6 w-full space-y-6 flex-1">
 
-    <!-- Row 1: The Three Top Metric Overview Cards -->
+    <!-- Row 1: The Three Screenshot Metric Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       
       <!-- CARD 1: SELECTED ANGANWADI CENTRE -->
@@ -252,7 +252,83 @@
 
     </div>
 
-    <!-- Row 2: Real-time Stock Transactions & Audit Register -->
+    <!-- Row 2: Live Nutrition Intelligence (Attendance + Meal Usage Calculator) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Column 1 & 2: Daily Meal Cooking Register (30g & 50g Norms) -->
+      <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-sm font-black text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+              <span>દૈનિક ભોજન અને કાચી સામગ્રી વપરાશ (Daily Meal Intelligence)</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Meal 1: Breakfast (30g/student) • Meal 2: Lunch (50g/student) [ICDS Gujarat Norms]</p>
+          </div>
+          <span class="text-xs bg-orange-50 text-orange-800 border border-orange-200 font-bold px-2.5 py-1 rounded-full font-mono">
+            30g / 50g Formula
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 uppercase font-bold border-y">
+              <tr>
+                <th class="p-2.5">સમય</th>
+                <th class="p-2.5">ભોજન પ્રકાર</th>
+                <th class="p-2.5">મેનૂ (Menu)</th>
+                <th class="p-2.5">હાજર બાળકો</th>
+                <th class="p-2.5">કુલ કપાત (Total Grams)</th>
+                <th class="p-2.5 text-right pr-4">બાકી સિલક</th>
+              </tr>
+            </thead>
+            <tbody id="sup-meal-tbody" class="divide-y divide-slate-100 font-medium">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Column 3: 10 Students Live Attendance Status -->
+      <div class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3 flex flex-col justify-between">
+        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+          <div>
+            <h3 class="text-sm font-black text-slate-900">આજની વિદ્યાર્થી હાજરી</h3>
+            <p class="text-xs text-slate-400">10 Registered Model Roster</p>
+          </div>
+          <span id="sup-att-count-badge" class="text-xs bg-emerald-100 text-emerald-800 font-black px-2.5 py-0.5 rounded-full">
+            8 હાજર / 2 ગેરહાજર
+          </span>
+        </div>
+
+        <div id="sup-attendance-grid" class="grid grid-cols-2 gap-2 text-xs flex-1 overflow-y-auto max-h-[220px] no-scrollbar">
+          <!-- Populated from attendance node -->
+        </div>
+
+        <div class="p-2.5 bg-slate-50 rounded-xl border text-[11px] text-slate-500 font-medium flex justify-between items-center">
+          <span>હાજરી વેરિફિકેશન:</span>
+          <span class="text-emerald-700 font-bold">✓ Geo-fence Verified</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row 3: Itemized Inventory Status (Direct Packets & Bulk Staples) -->
+    <div class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-3">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div>
+          <h2 class="text-sm font-black text-slate-900">આંગણવાડી ગોડાઉન સ્ટોક લેજર (Detailed Pantry Inventory)</h2>
+          <p class="text-xs text-slate-400">સરકારી પેકેટ્સ (THR) અને રાંધવાના અનાજની લાઈવ સિલક</p>
+        </div>
+        <span class="text-xs bg-slate-100 text-slate-700 font-extrabold px-3 py-1 rounded-lg">AWC-10103 Pantry</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-xs" id="sup-inventory-grid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- Row 4: Real-time Stock Transactions & Audit Register (Screenshot Match) -->
     <div id="printable-audit" class="bg-white rounded-2xl border border-slate-200/90 p-5 shadow-sm space-y-4">
       
       <!-- Table Header & Controls -->
@@ -308,10 +384,36 @@
 
     </div>
 
+    <!-- Hidden Printable WCDD MPR Section -->
+    <div id="printable-mpr" class="hidden">
+      <div class="p-6 bg-white space-y-4">
+        <div class="text-center border-b pb-3">
+          <h1 class="text-base font-black">મહિલા અને બાળ વિકાસ વિભાગ, ગુજરાત સરકાર</h1>
+          <p class="text-xs font-bold text-slate-700">સત્તાવાર આંગણવાડી માસિક પોષણ સ્ટોક પત્રક (Monthly Progress Report - MPR)</p>
+          <p class="text-[10px] text-slate-500">કેન્દ્ર: ૦૪ - વડતાલ • તાલુકો: આણંદ ગ્રામ્ય • જિલ્લો: આણંદ</p>
+        </div>
+        <table class="w-full text-left text-xs border border-slate-300">
+          <thead class="bg-slate-100 border-b border-slate-300 font-bold">
+            <tr>
+              <th class="p-2 border">સામગ્રી (Commodity)</th>
+              <th class="p-2 border">ચાલુ સિલક (Balance)</th>
+              <th class="p-2 border">એકમ (Unit)</th>
+              <th class="p-2 border">સ્થિતિ</th>
+            </tr>
+          </thead>
+          <tbody id="print-mpr-tbody" class="divide-y divide-slate-200"></tbody>
+        </table>
+        <div class="pt-8 flex justify-between text-xs font-bold">
+          <p>આંગણવાડી કાર્યકરની સહી: ___________________</p>
+          <p>મુખ્ય સેવિકા / CDPO ની સહી: ___________________</p>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- ======================================================== -->
-  <!-- 4. CENTRE SELECTOR MODAL (INTERACTIVE SWITCHER)          -->
+  <!-- 4. CENTRE SELECTOR MODAL                                 -->
   <!-- ======================================================== -->
   <div id="centreModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl w-full max-w-lg p-6 shadow-2xl border border-slate-200 space-y-4 animate-in fade-in zoom-in-95 duration-150">
@@ -319,27 +421,34 @@
       <div class="flex justify-between items-center border-b pb-3">
         <div>
           <h3 class="text-base font-black text-slate-900">આંગણવાડી કેન્દ્ર પસંદ કરો (Select Centre)</h3>
-          <p class="text-xs text-slate-500">Live Simulation for Anand District</p>
+          <p class="text-xs text-slate-500">Live Simulation for Anand Rural Block</p>
         </div>
-        <button onclick="closeCentreModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold">✕</button>
+        <button onclick="closeCentreModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 font-bold cursor-pointer">✕</button>
       </div>
 
-      <!-- Quick Centre Selection Cards -->
+      <!-- Quick Centre Cards -->
       <div class="space-y-2.5 max-h-[350px] overflow-y-auto pr-1" id="centresListContainer">
         <!-- Rendered via JS -->
       </div>
 
       <div class="pt-2 border-t flex justify-end">
-        <button onclick="closeCentreModal()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200">Cancel</button>
+        <button onclick="closeCentreModal()" class="px-4 py-2 bg-slate-100 text-slate-700 rounded-xl text-xs font-bold hover:bg-slate-200 cursor-pointer">Cancel</button>
       </div>
 
     </div>
   </div>
 
   <!-- ======================================================== -->
-  <!-- 5. JAVASCRIPT STATE CONTROLLER & MOCK DATA PIPELINE      -->
+  <!-- 5. REALTIME FIREBASE SYNC & CLIENT CONTROLLER            -->
   <!-- ======================================================== -->
   <script>
+    const firebaseConfig = {
+      databaseURL: "https://poshan-setu-default-rtdb.firebaseio.com/"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const AWC_PATH = "awc_10103";
+
     // Master Directory of Centres in Anand Rural Block
     const CENTRES_DATABASE = {
       "AW-VAD-04": {
@@ -351,7 +460,15 @@
         supervisor: "Shardaben Shah",
         currentBalance: 149,
         villageNameGu: "૦૪ - વડતાલ",
-        isLow: false
+        isLow: false,
+        inventory: {
+          balshakti: 124,
+          matrushakti: 48,
+          purnashakti: 35,
+          rice: 145,
+          dal: 38,
+          oil: 22
+        }
       },
       "AW-BAK-02": {
         code: "AW-BAK-02",
@@ -360,9 +477,17 @@
         sector: "Bakrol-02",
         worker: "Smt. Jasumatiben Vankar",
         supervisor: "Rekhaben Patel",
-        currentBalance: 12, // Simulated Low stock
+        currentBalance: 12, // Low stock simulation
         villageNameGu: "૦૨ - બાકરોલ પાટિયા",
-        isLow: true
+        isLow: true,
+        inventory: {
+          balshakti: 10,
+          matrushakti: 2,
+          purnashakti: 0,
+          rice: 18,
+          dal: 4,
+          oil: 2
+        }
       },
       "AW-MOG-07": {
         code: "AW-MOG-07",
@@ -373,7 +498,15 @@
         supervisor: "Shardaben Shah",
         currentBalance: 88,
         villageNameGu: "૦૭ - મોગરી ગામ",
-        isLow: false
+        isLow: false,
+        inventory: {
+          balshakti: 70,
+          matrushakti: 18,
+          purnashakti: 14,
+          rice: 90,
+          dal: 20,
+          oil: 10
+        }
       },
       "AW-KAR-01": {
         code: "AW-KAR-01",
@@ -384,13 +517,21 @@
         supervisor: "Anilaben Vaghela",
         currentBalance: 65,
         villageNameGu: "૦૧ - કરમસદ સીમ",
-        isLow: false
+        isLow: false,
+        inventory: {
+          balshakti: 50,
+          matrushakti: 15,
+          purnashakti: 10,
+          rice: 80,
+          dal: 18,
+          oil: 8
+        }
       }
     };
 
     let activeCentreId = "AW-VAD-04";
 
-    // 1. Initial Load & Clock
+    // 1. Live Clock
     function updateClock() {
       const now = new Date();
       const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
@@ -398,13 +539,12 @@
       document.getElementById('lastUpdatedClock').innerText = timeStr.toLowerCase();
     }
 
-    // 2. Render Active Centre Data to Screen
+    // 2. Render Active Centre Data
     function renderActiveCentre(centreId) {
       activeCentreId = centreId;
       const c = CENTRES_DATABASE[centreId];
       if (!c) return;
 
-      // Update Top Centre Card
       document.getElementById('centreCodeBadge').innerText = c.code;
       document.getElementById('centreNameDisplay').innerText = c.name;
       document.getElementById('centreTalukaText').innerText = c.taluka;
@@ -412,11 +552,8 @@
       document.getElementById('centreSupervisorText').innerText = c.supervisor;
       document.getElementById('centreWorkerDisplay').innerText = c.worker;
       document.getElementById('tableCentreSubtext').innerText = `${c.name} (${c.code})`;
-
-      // Update Live Balance Card
       document.getElementById('liveBalanceVal').innerText = c.currentBalance;
 
-      // Update Status Tags (Normal vs Low Stock Warning)
       const statusBadge = document.getElementById('stockStatusBadge');
       const alertTag = document.getElementById('alertStatusTag');
       const alertHeading = document.getElementById('alertStatusHeading');
@@ -440,11 +577,43 @@
         alertDesc.innerText = "Stock balance is above the mandated 15 packets safety threshold.";
       }
 
+      renderPantryGrid(c.inventory);
       renderAuditTable(c);
       lucide.createIcons();
     }
 
-    // 3. Render Audit Table Rows matching Screenshot
+    // 3. Render Pantry Cards (Bal Shakti, Matru Shakti, Rice, Oil, Dal, Atta)
+    function renderPantryGrid(inv) {
+      const container = document.getElementById('sup-inventory-grid');
+      container.innerHTML = `
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
+          <p class="text-[10px] font-bold text-slate-400">બાલ શક્તિ (500g)</p>
+          <p class="text-base font-black text-blue-700 font-mono mt-1">${inv.balshakti} Pkts</p>
+        </div>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
+          <p class="text-[10px] font-bold text-slate-400">માતૃ શક્તિ (1kg)</p>
+          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.matrushakti} Pkts</p>
+        </div>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
+          <p class="text-[10px] font-bold text-slate-400">પૂર્ણા શક્તિ (1kg)</p>
+          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.purnashakti} Pkts</p>
+        </div>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
+          <p class="text-[10px] font-bold text-slate-400">ચોખા (Rice)</p>
+          <p class="text-base font-black text-emerald-700 font-mono mt-1">${inv.rice} kg</p>
+        </div>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
+          <p class="text-[10px] font-bold text-slate-400">તુવેર દાળ</p>
+          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.dal} kg</p>
+        </div>
+        <div class="p-3 bg-slate-50 border rounded-2xl text-center">
+          <p class="text-[10px] font-bold text-slate-400">ખાદ્ય તેલ</p>
+          <p class="text-base font-black text-slate-800 font-mono mt-1">${inv.oil} L</p>
+        </div>
+      `;
+    }
+
+    // 4. Render Screenshot-Style Audit Table
     function renderAuditTable(centre) {
       const tbody = document.getElementById('auditTableBody');
       tbody.innerHTML = '';
@@ -490,7 +659,63 @@
       document.getElementById('totalRecordsCount').innerText = timestamps.length;
     }
 
-    // 4. Modal Helpers for Changing Centre
+    // 5. Firebase Live Listeners (Wired to awc_10103)
+    db.ref(`${AWC_PATH}/stock`).on('value', (snap) => {
+      const stock = snap.val();
+      if (stock && stock.currentTotal !== undefined) {
+        CENTRES_DATABASE["AW-VAD-04"].currentBalance = stock.currentTotal;
+        if (activeCentreId === "AW-VAD-04") {
+          document.getElementById('liveBalanceVal').innerText = stock.currentTotal;
+        }
+      }
+    });
+
+    // Meal Logs Listener (30g & 50g)
+    db.ref(`${AWC_PATH}/meal_logs`).limitToLast(5).on('value', (snap) => {
+      const logs = snap.val();
+      const tbody = document.getElementById('sup-meal-tbody');
+      if (!logs) return;
+
+      tbody.innerHTML = '';
+      Object.values(logs).reverse().forEach(entry => {
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="p-2.5 text-slate-500 font-mono">${entry.time || '11:30 AM'}</td>
+            <td class="p-2.5 font-bold text-slate-800">${entry.meal}</td>
+            <td class="p-2.5 font-semibold text-emerald-800">${entry.menu}</td>
+            <td class="p-2.5 font-bold font-mono">${entry.studentsServed} બાળકો</td>
+            <td class="p-2.5 font-black text-amber-700 font-mono">${entry.totalGrams} gm (${entry.portionRatio})</td>
+            <td class="p-2.5 text-right pr-4 font-black font-mono text-slate-800">${entry.remainingTotalStock} Pkts</td>
+          </tr>
+        `;
+      });
+    });
+
+    // Student Attendance Listener
+    db.ref(`${AWC_PATH}/attendance`).on('value', (snap) => {
+      const att = snap.val();
+      if (!att) return;
+
+      document.getElementById('sup-att-count-badge').innerText = `${att.present_count} હાજર / ${att.absent_count} ગેરહાજર`;
+
+      const grid = document.getElementById('sup-attendance-grid');
+      grid.innerHTML = '';
+
+      if (att.records && Array.isArray(att.records)) {
+        att.records.forEach(s => {
+          grid.innerHTML += `
+            <div class="p-2 rounded-xl border flex items-center justify-between ${s.present ? 'bg-emerald-50/70 border-emerald-200' : 'bg-slate-50 border-slate-200'}">
+              <span class="font-bold text-slate-800">${s.nameGu}</span>
+              <span class="text-[9px] font-black px-1.5 py-0.5 rounded ${s.present ? 'bg-emerald-200 text-emerald-900' : 'bg-rose-100 text-rose-800'}">
+                ${s.present ? '✓' : '✕'}
+              </span>
+            </div>
+          `;
+        });
+      }
+    });
+
+    // 6. Centre Modal Switcher
     function openCentreModal() {
       const container = document.getElementById('centresListContainer');
       container.innerHTML = '';
@@ -529,49 +754,36 @@
       closeCentreModal();
     }
 
-    // 5. Taluka & Sector Selector Dropdowns
     function handleTalukaChange(val) {
-      if (val === "anand_rural") {
-        selectCentre("AW-VAD-04");
-      }
+      selectCentre("AW-VAD-04");
     }
 
     function handleSectorChange(val) {
-      if (val === "bakrol_02") {
-        selectCentre("AW-BAK-02");
-      } else if (val === "karamsad_03") {
-        selectCentre("AW-KAR-01");
-      } else {
-        selectCentre("AW-VAD-04");
-      }
+      if (val === "bakrol_02") selectCentre("AW-BAK-02");
+      else if (val === "karamsad_03") selectCentre("AW-KAR-01");
+      else selectCentre("AW-VAD-04");
     }
 
-    // 6. Search & Filter Table
     function filterAuditTable() {
-      const query = document.getElementById('auditSearchInput').value.toLowerCase();
-      const action = document.getElementById('actionTypeFilter').value;
+      const q = document.getElementById('auditSearchInput').value.toLowerCase();
+      const a = document.getElementById('actionTypeFilter').value;
       const rows = document.querySelectorAll('#auditTableBody tr');
 
       rows.forEach(r => {
         const text = r.innerText.toLowerCase();
-        const matchesQuery = text.includes(query);
         let matchesAction = true;
-
-        if (action === 'distribution') matchesAction = text.includes('distribution');
-        if (action === 'inward') matchesAction = text.includes('inward');
-
-        r.style.display = (matchesQuery && matchesAction) ? '' : 'none';
+        if (a === 'distribution') matchesAction = text.includes('distribution');
+        if (a === 'inward') matchesAction = text.includes('inward');
+        r.style.display = (text.includes(q) && matchesAction) ? '' : 'none';
       });
     }
 
-    // 7. Toggle Language Demo Pill
     let isGu = true;
     function toggleLang() {
       isGu = !isGu;
       document.getElementById('langBtnLabel').innerText = isGu ? 'ગુજરાતી' : 'English';
     }
 
-    // Startup
     window.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
       updateClock();
