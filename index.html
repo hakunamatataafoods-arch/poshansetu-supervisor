@@ -43,6 +43,14 @@
       background-color: #f1f5f9;
       color: #0f172a;
     }
+    @media print {
+      header, .no-print {
+        display: none !important;
+      }
+      body {
+        background-color: #ffffff !important;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen pb-16">
@@ -105,7 +113,7 @@
       </div>
     </div>
 
-    <!-- Hierarchy Secondary Filter Bar -->
+    <!-- Hierarchy Filter Bar -->
     <div class="max-w-[1580px] mx-auto mt-2.5 pt-2.5 border-t border-slate-800/80 flex flex-wrap items-center justify-between text-xs text-slate-300 gap-2">
       <div class="flex items-center gap-5">
         <span class="flex items-center gap-1.5 text-amber-400 font-bold">
@@ -144,13 +152,13 @@
     </div>
   </header>
 
-  <!-- MAIN DASHBOARD CONTENT WRAPPER -->
+  <!-- MAIN DASHBOARD CONTENT -->
   <main class="max-w-[1580px] mx-auto px-6 pt-5 space-y-5">
 
     <!-- ROW 1: THREE TOP AUDIT CARDS -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       
-      <!-- Card 1: Selected Anganwadi Centre -->
+      <!-- Card 1: Selected Centre -->
       <div class="bg-white rounded-2xl p-4.5 border border-slate-200 shadow-xs flex flex-col justify-between">
         <div class="flex items-center justify-between pb-2">
           <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">SELECTED ANGANWADI CENTRE</span>
@@ -247,37 +255,31 @@
 
       <!-- 6 Live Inventory Metrics -->
       <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <!-- Item 1 -->
         <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 text-center">
           <span class="text-[11px] font-bold text-slate-600 block">Bal Shakti (500g)</span>
           <span id="stock_bal_shakti" class="text-2xl font-black text-blue-600 tabular-nums">35</span>
           <span class="text-xs font-bold text-slate-600 ml-1">Pkts</span>
         </div>
-        <!-- Item 2 -->
         <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 text-center">
           <span class="text-[11px] font-bold text-slate-600 block">Matru Shakti (1kg)</span>
           <span id="stock_matru_shakti" class="text-2xl font-black text-slate-900 tabular-nums">24</span>
           <span class="text-xs font-bold text-slate-600 ml-1">Pkts</span>
         </div>
-        <!-- Item 3 -->
         <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 text-center">
           <span class="text-[11px] font-bold text-slate-600 block">Purna Shakti (1kg)</span>
           <span id="stock_purna_shakti" class="text-2xl font-black text-slate-900 tabular-nums">20</span>
           <span class="text-xs font-bold text-slate-600 ml-1">Pkts</span>
         </div>
-        <!-- Item 4 -->
         <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 text-center">
           <span class="text-[11px] font-bold text-slate-600 block">Rice (Grain)</span>
           <span id="stock_rice" class="text-2xl font-black text-emerald-700 tabular-nums">48</span>
           <span class="text-xs font-bold text-emerald-700 ml-1">kg</span>
         </div>
-        <!-- Item 5 -->
         <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 text-center">
           <span class="text-[11px] font-bold text-slate-600 block">Toor Dal</span>
           <span id="stock_dal" class="text-2xl font-black text-slate-900 tabular-nums">25</span>
           <span class="text-xs font-bold text-slate-600 ml-1">kg</span>
         </div>
-        <!-- Item 6 -->
         <div class="bg-slate-50/80 p-3 rounded-xl border border-slate-200 text-center">
           <span class="text-[11px] font-bold text-slate-600 block">Edible Oil</span>
           <span id="stock_oil" class="text-2xl font-black text-slate-900 tabular-nums">22</span>
@@ -286,7 +288,7 @@
       </div>
     </div>
 
-    <!-- ROW 3: MEAL INTELLIGENCE & STUDENT ATTENDANCE -->
+    <!-- ROW 3: MEAL INTELLIGENCE & STUDENT ATTENDANCE (UPDATED ROSTER) -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
       
       <!-- Meal Intelligence (2 cols) -->
@@ -315,18 +317,17 @@
                   <th class="py-2">MENU SERVED</th>
                   <th class="py-2">STUDENTS PRESENT</th>
                   <th class="py-2">TOTAL GRAMS</th>
-                  <th class="py-2 text-right">CLOSING BALANCE</th>
+                  <th class="py-2 text-right">STATUS</th>
                 </tr>
               </thead>
               <tbody id="mealLogsBody" class="divide-y divide-slate-100 font-medium text-slate-800">
-                <!-- Dynamically loaded from Firebase -->
                 <tr>
                   <td class="py-3 text-slate-500">11:30 AM</td>
                   <td class="font-bold text-slate-900">Meal 1 – Breakfast</td>
                   <td class="text-emerald-700 font-semibold">Sukdi (Atta)</td>
                   <td>10 બાળકો</td>
                   <td class="font-bold text-amber-800">300 gm <span class="text-[10px] text-slate-500">(30 gm/student)</span></td>
-                  <td class="text-right font-black text-slate-900">49.7 kg</td>
+                  <td class="text-right font-black text-emerald-700">Recorded ✓</td>
                 </tr>
               </tbody>
             </table>
@@ -334,22 +335,22 @@
         </div>
       </div>
 
-      <!-- Student Attendance (1 col) -->
+      <!-- Student Attendance with Corrected 10 Model Students -->
       <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-100">
             <div>
               <h3 class="text-sm font-black text-slate-900">Today's Student Attendance</h3>
-              <p class="text-[11px] text-slate-500">10 Registered Model Roster</p>
+              <p class="text-[11px] text-slate-500">10 Registered Model Roster (04 Vadtal)</p>
             </div>
             <span id="attendanceSummaryBadge" class="text-xs font-black text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
               10 હાજર / 0 ગેરહાજર
             </span>
           </div>
 
-          <!-- 10 Children Grid -->
+          <!-- 10 Children Grid (Matched to Mobile Application) -->
           <div id="studentRosterContainer" class="grid grid-cols-2 gap-2 text-xs">
-            <!-- Rendered dynamically -->
+            <!-- Populated dynamically via renderStudents() -->
           </div>
         </div>
 
@@ -363,7 +364,7 @@
 
     </div>
 
-    <!-- ROW 4: REAL-TIME STOCK TRANSACTIONS & AUDIT REGISTER -->
+    <!-- ROW 4: REAL-TIME TRANSACTIONS & AUDIT REGISTER -->
     <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs">
       <div class="flex flex-wrap items-center justify-between pb-3 mb-3 border-b border-slate-100 gap-3">
         <div>
@@ -377,19 +378,17 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <!-- Search input -->
           <div class="relative">
             <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5"></i>
             <input type="text" placeholder="Search village, centre or action..." class="pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:ring-1 focus:ring-emerald-500 w-60">
           </div>
-          <!-- Action filter -->
           <select id="actionFilter" class="bg-slate-50 border border-slate-200 text-slate-800 rounded-lg px-2.5 py-1.5 text-xs font-semibold focus:outline-none">
             <option value="all">All Actions</option>
             <option value="distribution">Daily Distribution (Usage)</option>
             <option value="inward">Stock Inward (Challan)</option>
           </select>
           <span id="recordCountPill" class="text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2.5 py-1.5 rounded-lg">
-            0 Records
+            6 Records
           </span>
         </div>
       </div>
@@ -408,7 +407,7 @@
             </tr>
           </thead>
           <tbody id="transactionLogsBody" class="divide-y divide-slate-100 font-medium text-slate-800">
-            <!-- Dynamically populated from RTDB distributions & inward records -->
+            <!-- Populated via Firebase or fallback -->
           </tbody>
         </table>
       </div>
@@ -416,44 +415,49 @@
 
   </main>
 
-  <!-- FIREBASE RTDB SYNCHRONIZATION SCRIPT -->
+  <!-- JAVASCRIPT & FIREBASE REALTIME SYNC LOGIC -->
   <script>
-    // 1. Initialize Lucide icons
+    // 1. Initialize Lucide Icons
     lucide.createIcons();
 
-    // 2. Real-time Clock in IST
-    function updateISTClock() {
+    // 2. Real-Time IST Clock
+    function updateClock() {
       const now = new Date();
-      const timeStr = now.toLocaleTimeString('en-IN', {
+      document.getElementById('liveClock').innerText = now.toLocaleTimeString('en-IN', {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
         hour12: true,
         timeZone: 'Asia/Kolkata'
       }) + ' IST';
-      document.getElementById('liveClock').innerText = timeStr;
     }
-    setInterval(updateISTClock, 1000);
-    updateISTClock();
+    setInterval(updateClock, 1000);
+    updateClock();
 
-    // 3. Fallback Initial Students
-    const DEFAULT_STUDENTS = [
-      { id: 1, name: 'આરવ પટેલ', present: true },
-      { id: 2, name: 'દિયા રાઠોડ', present: true },
-      { id: 3, name: 'કરણ સોલંકી', present: false },
-      { id: 4, name: 'જીયા તડવી', present: true },
-      { id: 5, name: 'પ્રિયાંશ પરમાર', present: true },
-      { id: 6, name: 'અનન્યા શાહ', present: true },
-      { id: 7, name: 'વિહાન ઠાકોર', present: true },
-      { id: 8, name: 'ઈશાન મકવાણા', present: false },
-      { id: 9, name: 'રુદ્ર વાઘેલા', present: true },
-      { id: 10, name: 'તન્વી પંચાલ', present: true }
+    // 3. Exact 10 Students from the PoshanSetu Mobile Application
+    const OFFICIAL_STUDENTS = [
+      { id: 1, rollNo: '01', name: 'Aarav Patel', nameGu: 'આરવ પટેલ', present: true },
+      { id: 2, rollNo: '02', name: 'Diya Shah', nameGu: 'દીયા શાહ', present: true },
+      { id: 3, rollNo: '03', name: 'Vihaan Mehta', nameGu: 'વિહાન મહેતા', present: true },
+      { id: 4, rollNo: '04', name: 'Ananya Joshi', nameGu: 'અનન્યા જોશી', present: true },
+      { id: 5, rollNo: '05', name: 'Kabir Parmar', nameGu: 'કબીર પરમાર', present: true },
+      { id: 6, rollNo: '06', name: 'Riya Desai', nameGu: 'રીયા દેસાઈ', present: true },
+      { id: 7, rollNo: '07', name: 'Dev Solanki', nameGu: 'દેવ સોલંકી', present: true },
+      { id: 8, rollNo: '08', name: 'Ishita Vaghela', nameGu: 'ઈશિતા વાઘેલા', present: true },
+      { id: 9, rollNo: '09', name: 'Rudra Makwana', nameGu: 'રુદ્ર મકવાણા', present: true },
+      { id: 10, rollNo: '10', name: 'Priya Chavda', nameGu: 'પ્રિયા ચાવડા', present: true }
     ];
 
-    function renderStudents(studentsList) {
+    let isGujarati = true;
+    let currentStudentList = OFFICIAL_STUDENTS;
+
+    function renderStudents(studentsList, useGujarati = isGujarati) {
       const container = document.getElementById('studentRosterContainer');
+      if (!container) return;
       container.innerHTML = '';
-      const list = studentsList || DEFAULT_STUDENTS;
+      
+      const list = (studentsList && studentsList.length) ? studentsList : OFFICIAL_STUDENTS;
+      currentStudentList = list;
       let presentCount = 0;
 
       list.forEach(student => {
@@ -461,14 +465,20 @@
         if (isPresent) presentCount++;
 
         const studentDiv = document.createElement('div');
-        studentDiv.className = `p-2 rounded-xl border flex items-center justify-between ${
+        studentDiv.className = `p-2 rounded-xl border flex items-center justify-between transition-all ${
           isPresent 
             ? 'bg-emerald-50/70 border-emerald-200 text-slate-900 font-bold' 
             : 'bg-rose-50/70 border-rose-200 text-slate-500'
         }`;
+        
+        const displayName = useGujarati ? (student.nameGu || student.name) : student.name;
+        
         studentDiv.innerHTML = `
-          <span class="truncate">${student.nameGu || student.name}</span>
-          <span class="w-5 h-5 rounded-full flex items-center justify-center text-[10px] ${
+          <div class="flex items-center gap-1.5 truncate">
+            <span class="text-[10px] px-1.5 py-0.5 rounded ${isPresent ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'} font-mono">${student.rollNo || student.id}</span>
+            <span class="truncate text-xs">${displayName}</span>
+          </div>
+          <span class="w-5 h-5 rounded-full shrink-0 flex items-center justify-center text-[10px] ${
             isPresent ? 'bg-emerald-200 text-emerald-800' : 'bg-rose-200 text-rose-800'
           }">
             ${isPresent ? '✓' : '✕'}
@@ -477,12 +487,31 @@
         container.appendChild(studentDiv);
       });
 
-      document.getElementById('attendanceSummaryBadge').innerText = 
-        `${presentCount} હાજર / ${list.length - presentCount} ગેરહાજર`;
+      const absentCount = list.length - presentCount;
+      const badge = document.getElementById('attendanceSummaryBadge');
+      if (badge) {
+        badge.innerText = useGujarati
+          ? `${presentCount} હાજર / ${absentCount} ગેરહાજર`
+          : `${presentCount} Present / ${absentCount} Absent`;
+        badge.className = `text-xs font-black px-2.5 py-1 rounded border ${
+          absentCount === 0 
+            ? 'text-emerald-800 bg-emerald-50 border-emerald-200' 
+            : 'text-amber-800 bg-amber-50 border-amber-200'
+        }`;
+      }
     }
-    renderStudents(DEFAULT_STUDENTS);
 
-    // 4. Connect to Firebase Realtime Database
+    // Initial render
+    renderStudents(OFFICIAL_STUDENTS, true);
+
+    // Language Toggle Listener
+    document.getElementById('langToggleBtn').addEventListener('click', () => {
+      isGujarati = !isGujarati;
+      document.getElementById('langLabel').innerText = isGujarati ? 'ગુજરાતી' : 'English';
+      renderStudents(currentStudentList, isGujarati);
+    });
+
+    // 4. Firebase RTDB Connection & Real-Time Sync
     const FIREBASE_CONFIG = {
       databaseURL: "https://poshan-setu-default-rtdb.firebaseio.com/"
     };
@@ -494,7 +523,17 @@
       const db = firebase.database();
       const AWC_PATH = "awc_awvad04";
 
-      // A. Real-time Inventory Listener
+      // A. Real-time Student Attendance Sync from Mobile App
+      db.ref(`${AWC_PATH}/students`).on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data && Array.isArray(data)) {
+          renderStudents(data, isGujarati);
+        } else if (data && typeof data === 'object') {
+          renderStudents(Object.values(data), isGujarati);
+        }
+      });
+
+      // B. Real-time Inventory Listener
       db.ref(`${AWC_PATH}/inventory`).on('value', (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -502,7 +541,6 @@
             document.getElementById('stock_bal_shakti').innerText = data.bal_shakti;
             document.getElementById('balbhogCount').innerText = data.bal_shakti;
             
-            // Low stock rule (< 15)
             if (Number(data.bal_shakti) < 15) {
               document.getElementById('stockWarningBadge').className = 'text-[11px] font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded border border-rose-300 flex items-center gap-1';
               document.getElementById('stockWarningBadge').innerHTML = '⚠️ Low Stock Alert';
@@ -526,10 +564,11 @@
           if (data.oil !== undefined) document.getElementById('stock_oil').innerText = data.oil;
 
           document.getElementById('lastUpdatedStock').innerText = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+          lucide.createIcons();
         }
       });
 
-      // B. Real-time Meal Deductions Listener
+      // C. Real-time Meal Entries Listener
       db.ref(`${AWC_PATH}/meal_entries`).limitToLast(10).on('value', (snapshot) => {
         const data = snapshot.val();
         if (data) {
@@ -549,14 +588,14 @@
               <td class="text-emerald-700 font-semibold">${item.menuName || 'Sukdi (Atta)'}</td>
               <td>${item.studentsPresent || 10} બાળકો</td>
               <td class="font-bold text-amber-800">${item.totalGrams || 300} gm <span class="text-[10px] text-slate-500">(Formula Auto)</span></td>
-              <td class="text-right font-black text-slate-900">Recorded ✓</td>
+              <td class="text-right font-black text-emerald-700">Recorded ✓</td>
             `;
             tbody.appendChild(row);
           });
         }
       });
 
-      // C. Real-time Stock Transactions (Distributions & Inwards)
+      // D. Real-Time Audit Register Transactions
       function refreshTransactions() {
         Promise.all([
           db.ref(`${AWC_PATH}/distributions`).once('value'),
@@ -570,7 +609,7 @@
                 type: 'distribution',
                 action: '↗ – Daily Distribution (Usage)',
                 centre: '04 – Vadtal (Anand)',
-                timestamp: d.timestamp || d.recordedAt,
+                timestamp: d.timestamp ? new Date(d.timestamp).toLocaleString('en-IN') : '18/10/2026 11:30:52 am',
                 change: '-10 pkts',
                 balance: '14 pkts',
                 badgeColor: 'text-blue-600 bg-blue-50 border-blue-200'
@@ -584,7 +623,7 @@
                 type: 'inward',
                 action: '↙ + Stock Inward (Challan)',
                 centre: '04 – Vadtal (Anand)',
-                timestamp: inw.date || inw.recordedAt,
+                timestamp: inw.date || '18/10/2026 09:15:00 am',
                 change: '+50 pkts',
                 balance: '64 pkts',
                 badgeColor: 'text-emerald-700 bg-emerald-50 border-emerald-200'
@@ -592,7 +631,7 @@
             });
           }
 
-          // Fallback static records if empty
+          // Fallback static transactions if database is fresh
           if (combined.length === 0) {
             combined.push(
               { type: 'distribution', action: '↗ – Daily Distribution (Usage)', centre: '04 – Vadtal (Anand)', timestamp: '18/10/2026 11:30:52 am', change: '-10 pkts', balance: '14 pkts', badgeColor: 'text-blue-600 bg-blue-50 border-blue-200' },
@@ -613,12 +652,12 @@
             tr.className = 'hover:bg-slate-50/80 transition-colors';
             tr.innerHTML = `
               <td class="py-3 px-3 text-slate-400 font-bold">${index + 1}</td>
-              <td class="py-3 px-3 font-medium text-slate-700">${item.timestamp}</td>
-              <td class="py-3 px-3 font-semibold text-slate-900 flex items-center gap-1.5">
+              <td class="py-3 px-3 font-medium text-slate-700 whitespace-nowrap">${item.timestamp}</td>
+              <td class="py-3 px-3 font-semibold text-slate-900 flex items-center gap-1.5 whitespace-nowrap">
                 <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i>
                 ${item.centre}
               </td>
-              <td class="py-3 px-3">
+              <td class="py-3 px-3 whitespace-nowrap">
                 <span class="inline-block px-2.5 py-1 rounded text-[11px] font-bold border ${item.badgeColor}">
                   ${item.action}
                 </span>
@@ -636,12 +675,11 @@
         });
       }
 
-      // Initial fetch and listener trigger
       db.ref(`${AWC_PATH}/distributions`).on('value', refreshTransactions);
       db.ref(`${AWC_PATH}/stock_inward`).on('value', refreshTransactions);
 
     } catch (err) {
-      console.warn('Firebase RTDB listener note:', err);
+      console.warn('Firebase RTDB listener notice:', err);
     }
   </script>
 </body>
